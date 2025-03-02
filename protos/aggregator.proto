@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package aggregator;
+
+service DataAggregator {
+  rpc AggregateData (AggregateRequest) returns (AggregateResponse);
+}
+
+message AggregateRequest {
+  bytes image_data = 1;
+  string redis_key = 2;
+  string image_id = 3;
+}
+
+message AggregateResponse {
+  bool success = 1;
+  string message = 2;
+  string saved_path = 3;
+}
