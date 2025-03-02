@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package age_gender;
+
+service AgeGenderEstimation {
+  rpc EstimateAgeGender (ImageRequest) returns (AgeGenderResponse);
+}
+
+message ImageRequest {
+  bytes image_data = 1;
+  string image_id = 2;
+}
+
+message AgeGenderResponse {
+  bool success = 1;
+  string image_id = 2;
+  string redis_key = 3;
+  string error_message = 4;
+}
