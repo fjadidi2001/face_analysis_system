@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package landmark_detection;
+
+service LandmarkDetection {
+  rpc DetectLandmarks (ImageRequest) returns (LandmarkResponse);
+}
+
+message ImageRequest {
+  bytes image_data = 1;
+  string image_id = 2;
+}
+
+message LandmarkResponse {
+  bool success = 1;
+  string image_id = 2;
+  string redis_key = 3;
+  string error_message = 4;
+}
