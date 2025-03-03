@@ -1,0 +1,22 @@
+# face_analysis_system/docker-compose.yml
+version: '3'
+
+services:
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - face_analysis_network
+
+  face_landmark_service:
+    build:
+      context: .
+      dockerfile: face_landmark_service/Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - AGGREGATOR_SERVICE_ADDR=data_storage_service:50053
+      - ROBOFLOW_API_KEY=2IGtFaicFMGaMwb2mX8A
+    depends_on:
