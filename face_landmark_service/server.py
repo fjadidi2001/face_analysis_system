@@ -9,6 +9,10 @@ import cv2
 import redis
 from concurrent import futures
 from inference_sdk import InferenceHTTPClient
+import sys
+
+# Add the project root to Python path for importing generated gRPC code
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import landmark_detection_pb2
 import landmark_detection_pb2_grpc
 import aggregator_pb2
