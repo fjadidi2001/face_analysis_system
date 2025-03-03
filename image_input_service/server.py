@@ -6,6 +6,10 @@ import logging
 from concurrent import futures
 import cv2
 import numpy as np
+import sys
+
+# Add the project root to Python path for importing generated gRPC code
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import landmark_detection_pb2
 import landmark_detection_pb2_grpc
 import age_gender_pb2
@@ -145,6 +149,4 @@ if __name__ == "__main__":
     process_directory(input_dir)
     
     # In a real system, you might implement a file watcher here
-    # For this example, we'll just process once
     logger.info("Initial processing complete. In a production system, this would watch for new files.")
-
