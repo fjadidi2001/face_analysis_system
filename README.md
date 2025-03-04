@@ -7,8 +7,6 @@ A microservices-based system for detecting faces in images and analyzing them fo
 This project implements a distributed system for face analysis using several microservices that communicate via gRPC. The system can detect faces in images, estimate age and gender, and aggregate the results.
 
 
-![System Architecture](https://github.com/username/face-analysis-system/raw/main/docs/system_architecture.png)
-
 ## Features
 
 - Face detection using Roboflow API
