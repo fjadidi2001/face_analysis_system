@@ -1,3 +1,7 @@
+networks:
+  face_analysis_network:
+    driver: bridge
+    
 services:
   redis:
     image: redis:6
