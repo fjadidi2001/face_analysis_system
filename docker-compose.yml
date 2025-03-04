@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   redis:
     image: redis:6
@@ -54,14 +52,15 @@ services:
       context: .
       dockerfile: image_input_service/Dockerfile
     environment:
-      - INPUT_DIRECTORY=/app/input
       - LANDMARK_SERVICE_ADDR=face_landmark_service:50051
       - AGE_GENDER_SERVICE_ADDR=age_gender_service:50052
+      - INPUT_DIRECTORY=/app/input
     volumes:
       - ./input:/app/input
     depends_on:
       - face_landmark_service
       - age_gender_service
+      - data_storage_service
     networks:
       - face_analysis_network
 
