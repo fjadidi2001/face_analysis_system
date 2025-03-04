@@ -12,6 +12,7 @@ RUN mkdir -p /app/landmark_detection_pb2
 RUN mkdir -p /app/aggregator_pb2
 RUN python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. protos/landmark_detection.proto
 RUN python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. protos/aggregator.proto
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
 
 # Set environment variables
 ENV REDIS_URL=redis://redis:6379/0
