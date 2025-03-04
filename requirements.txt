@@ -1,0 +1,11 @@
+grpcio
+grpcio-tools
+opencv-python-headless
+numpy
+protobuf
+redis
+transformers
+torch
+torchvision
+Pillow
+inference-sdk

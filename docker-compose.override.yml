@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  face_landmark_service:
+    depends_on:
+      - redis
+    restart: on-failure
+    
+  age_gender_service:
+    depends_on:
+      - redis
+    restart: on-failure
+    
+  image_input_service:
+    depends_on:
+      - redis
+      - face_landmark_service
+      - age_gender_service
+      - data_storage_service
+    restart: on-failure

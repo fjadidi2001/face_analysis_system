@@ -1,0 +1,71 @@
+services:
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - face_analysis_network
+
+  face_landmark_service:
+    build:
+      context: .
+      dockerfile: face_landmark_service/Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - AGGREGATOR_SERVICE_ADDR=data_storage_service:50053
+      - ROBOFLOW_API_KEY=2IGtFaicFMGaMwb2mX8A
+    depends_on:
+      - redis
+    networks:
+      - face_analysis_network
+
+  age_gender_service:
+    build:
+      context: .
+      dockerfile: age_gender_service/Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - AGGREGATOR_SERVICE_ADDR=data_storage_service:50053
+    depends_on:
+      - redis
+    networks:
+      - face_analysis_network
+
+  data_storage_service:
+    build:
+      context: .
+      dockerfile: data_storage_service/Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - OUTPUT_DIRECTORY=/app/output
+    volumes:
+      - ./output:/app/output
+    depends_on:
+      - redis
+    networks:
+      - face_analysis_network
+
+  image_input_service:
+    build:
+      context: .
+      dockerfile: image_input_service/Dockerfile
+    environment:
+      - LANDMARK_SERVICE_ADDR=face_landmark_service:50051
+      - AGE_GENDER_SERVICE_ADDR=age_gender_service:50052
+      - INPUT_DIRECTORY=/app/input
+    volumes:
+      - ./input:/app/input
+    depends_on:
+      - face_landmark_service
+      - age_gender_service
+      - data_storage_service
+    networks:
+      - face_analysis_network
+
+networks:
+  face_analysis_network:
+
+volumes:
+  redis_data:
