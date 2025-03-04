@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY face_landmark_service/ /app/face_landmark_service/
 COPY protos/ /app/protos/
-COPY *.py /app/
 
 RUN pip install --no-cache-dir grpcio grpcio-tools opencv-python-headless numpy protobuf redis inference-sdk
 
 # Generate gRPC code
+RUN mkdir -p /app/landmark_detection_pb2
+RUN mkdir -p /app/aggregator_pb2
 RUN python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. protos/landmark_detection.proto
 RUN python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. protos/aggregator.proto
 
