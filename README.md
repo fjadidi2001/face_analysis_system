@@ -203,7 +203,7 @@ The system uses the Roboflow API for face detection. The API key is included in 
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Apache License - see the LICENSE file for details.
 
 ## Acknowledgments
 
